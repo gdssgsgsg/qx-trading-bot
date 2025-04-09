@@ -2,19 +2,16 @@
 # -*- coding: utf-8 -*-
 """
 نقطة البداية لبوت التداول - إصدار Render المُحسّن
-يستخدم webhook بدلاً من الاستطلاع المستمر
 """
 
 import os
 import logging
-from flask import Flask, request, jsonify
-import telebot
 import threading
 import time
+from flask import Flask, request, jsonify
 
 from src.utils.config import load_config
 from src.utils.logger import setup_logger
-from bot import initialize_bot, process_update
 
 # إعداد التسجيل
 logger = setup_logger()
@@ -26,6 +23,11 @@ TOKEN = config.TELEGRAM_BOT_TOKEN
 
 # إنشاء تطبيق Flask
 app = Flask(__name__)
+
+# استدعاء تهيئة البوت
+# نؤخر الاستيراد لضمان تهيئة logger أولاً
+from bot import initialize_bot, process_update
+import telebot
 
 # إنشاء البوت وتهيئته
 bot = initialize_bot()
