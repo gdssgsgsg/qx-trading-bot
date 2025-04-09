@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: qx-trading-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_ADMIN_ID
+        sync: false
+      - key: QX_USERNAME
+        sync: false
+      - key: QX_PASSWORD
+        sync: false
